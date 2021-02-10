@@ -1,0 +1,2 @@
+export const CREATE_MOVE = 'CREATE_MOVE';
+export const CREATE_FILTER = 'CREATE_FILTER';
