@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: "100%",
   },
 });
 
@@ -41,13 +41,11 @@ function PriceFilter({ setPriceFilter, data }) {
         max={maxPrice}
         value={value}
         onChange={handleChange}
+        onChangeCommitted ={handleClick}
         valueLabelDisplay='auto'
         aria-labelledby='range-slider'
         getAriaValueText={valuetext}
       />
-      <Button variant='outlined' onClick = {handleClick}>
-        Применить фильтр
-      </Button>
     </div>
   );
 }
