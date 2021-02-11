@@ -45,7 +45,7 @@ function PriceFilter({ setPriceFilter, data }) {
         aria-labelledby='range-slider'
         getAriaValueText={valuetext}
       />
-      <Button variant='outlined' color='primary' onClick = {handleClick}>
+      <Button variant='outlined' onClick = {handleClick}>
         Применить фильтр
       </Button>
     </div>
