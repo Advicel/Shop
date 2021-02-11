@@ -1,5 +1,5 @@
-import { CREATE_FILTER } from './types';
-import { CREATE_PRICE_FILTER } from './types';
+import { CREATE_FILTER,CREATE_PRICE_FILTER,CREATE_NAME_PATTERN } from './types';
+import {  } from './types';
 
 export function currentFilter(value) {
   return {
@@ -11,5 +11,12 @@ export function setPriceFilter(value) {
   return {
     type: CREATE_PRICE_FILTER,
     payload: value,
+  };
+}
+
+export function setNamePattern(value){
+  return{
+    type: CREATE_NAME_PATTERN,
+    payload:value,
   };
 }

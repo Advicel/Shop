@@ -7,6 +7,14 @@ export default function getData() {
       category: 'fruits',
       maker: 'vitya',
     },
+
+    {
+      name: 'banana123',
+      price: 10,
+      id: 123141234,
+      category: 'fruits',
+      maker: 'vitya',
+    },
     {
       name: 'apple',
       price: 20,
@@ -102,6 +110,27 @@ export default function getData() {
       id: 7821897,
       category: 'drinks',
       maker: 'juiss',
+    },
+    {
+      name: 'b',
+      price: 10,
+      id: 123141231,
+      category: 'fruits',
+      maker: 'vitya',
+    },
+    {
+      name: 'ban',
+      price: 10,
+      id: 123141232,
+      category: 'fruits',
+      maker: 'vitya',
+    },
+    {
+      name: 'banan',
+      price: 10,
+      id: 123141233,
+      category: 'fruits',
+      maker: 'vitya',
     },
   ];
 }

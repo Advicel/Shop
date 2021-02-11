@@ -1,9 +1,10 @@
-import { CREATE_FILTER, CREATE_PRICE_FILTER } from './types';
+import { CREATE_FILTER, CREATE_NAME_PATTERN, CREATE_PRICE_FILTER } from './types';
 
 const initialState = {
   category: 'All',
   minPrice: null,
   maxPrice: null,
+  namePattern:"",
 };
 
 export const filterReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ export const filterReducer = (state = initialState, action) => {
         minPrice: action.payload[0],
         maxPrice: action.payload[1],
       };
+    case CREATE_NAME_PATTERN:
+      return{
+        ...state,
+        namePattern:action.payload,
+      }
     default:
       return state;
   }
