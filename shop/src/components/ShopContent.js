@@ -3,14 +3,18 @@ import React from 'react';
 import Card from './Card.js';
 import { connect } from 'react-redux';
 
-function ShopContent({filter, data }) {
-    console.log(filter)
+function ShopContent({ filter, data }) {
+  data = data.filter(
+    (card) =>
+      (card.category === filter.category || filter.category === 'All') &&
+      ((card.price >= filter.minPrice && card.price <= filter.maxPrice) ||
+        filter.minPrice === null)
+  );
   const styles = useStyles();
   return (
     <div className={styles.shopContent}>
       {data.map((card, index) => {
-        if(card.category===filter||filter==="All")
-        return <Card key={index} card={card} />
+        return <Card key={index} card={card} />;
       })}
     </div>
   );
@@ -19,11 +23,11 @@ function ShopContent({filter, data }) {
 const useStyles = makeStyles(
   {
     shopContent: {
-        margin:"0 auto",
+      margin: '0 auto',
       display: 'flex',
-      flexWrap:'wrap',
-      justifyContent:'space-between',
-      width:'80%',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      width: '80%',
     },
   },
   {
@@ -31,12 +35,12 @@ const useStyles = makeStyles(
   }
 );
 
-
-const mapStateToProps = state =>{
-    return {
-        filter:state.filter.filter,
-    };
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    filter: state.filter,
   };
-  
-  export default connect(mapStateToProps,null)(ShopContent);
+};
+
+export default connect(mapStateToProps, null)(ShopContent);
   
