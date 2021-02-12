@@ -5,14 +5,16 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import Checkbox from '@material-ui/core/Checkbox';
+import { connect } from 'react-redux';
+import { addToBasket, deleteFromBasket } from '../redux/actions';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     maxWidth: 300,
-    marginBottom:20,
-    border:"1px solid black",
+    marginBottom: 20,
+    border: '1px solid black',
   },
   bullet: {
     display: 'inline-block',
@@ -27,12 +29,41 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleCard({ card }) {
+function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
   const classes = useStyles();
+  const basketExists = (id) => {
+    for (let i = 0; i < basket.length; i++) {
+      if (basket[i].card.id === id) {
+        return i;
+      }
+    }
+    return -1;
+  };
+  const [checked, setChecked] = React.useState(basketExists(card.id)!==-1);
+  console.log(basket);
+  const handleChange = () => {
+    setChecked(!checked);
+    const id = basketExists(card.id);
+    if (id === -1) {
+      addToBasket({
+        card: card,
+        count: 1,
+      });
+    } else {
+      deleteFromBasket(id);
+    }
+    //console.log(basket);
+  };
 
   return (
     <Card className={classes.root}>
       <CardContent>
+        <Checkbox
+          checked={checked}
+          onChange={handleChange}
+          color='primary'
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
         {/* <Typography
           className={classes.title}
           color='textSecondary'
@@ -55,3 +86,15 @@ export default function SimpleCard({ card }) {
     </Card>
   );
 }
+
+const getReduxState = (state) => {
+  return {
+    basket: state.basket.basket,
+  };
+};
+const setReduxState = {
+  addToBasket,
+  deleteFromBasket,
+};
+
+export default connect(getReduxState, setReduxState)(SimpleCard);

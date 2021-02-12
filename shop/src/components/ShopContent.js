@@ -18,7 +18,7 @@ function ShopContent({ filter, data }) {
   return (
     <div className={styles.shopContent}>
       {data.map((card, index) => {
-        return <Card key={index} card={card} />;
+        return <Card key={card.id} card={card} />;
       })}
     </div>
   );
@@ -40,7 +40,7 @@ const useStyles = makeStyles(
 );
 
 const mapStateToProps = (state) => {
-  console.log(state.filter);
+  console.log(state);
   return {
     filter: state.filter,
   };

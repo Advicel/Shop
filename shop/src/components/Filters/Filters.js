@@ -21,13 +21,13 @@ export default function Filters({ data }) {
 
 const useStyles = makeStyles(
   {
-    filters:{
-      minWidth:200,
-
+    filters: {
+      minWidth: 200,
+      height: 'fit-content',
     },
     filtersWrapper: {
-      margin:"0 auto",
-      width:"80%",
+      margin: '0 auto',
+      width: '80%',
       // display: 'flex',
       // justifyContent:"space-around",
     },

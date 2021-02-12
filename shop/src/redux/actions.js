@@ -1,5 +1,10 @@
-import { CREATE_FILTER,CREATE_PRICE_FILTER,CREATE_NAME_PATTERN } from './types';
-import {  } from './types';
+import {
+  CREATE_FILTER,
+  CREATE_PRICE_FILTER,
+  CREATE_NAME_PATTERN,
+  ADD_TO_BASKET,
+  DELETE_FROM_BASKET,
+} from './types';
 
 export function currentFilter(value) {
   return {
@@ -14,9 +19,21 @@ export function setPriceFilter(value) {
   };
 }
 
-export function setNamePattern(value){
-  return{
+export function setNamePattern(value) {
+  return {
     type: CREATE_NAME_PATTERN,
-    payload:value,
+    payload: value,
+  };
+}
+export function addToBasket(value) {
+  return {
+    type: ADD_TO_BASKET,
+    payload: value,
+  };
+}
+export function deleteFromBasket(value){
+  return{
+    type:DELETE_FROM_BASKET,
+    payload: value,
   };
 }
