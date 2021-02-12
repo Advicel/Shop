@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 });
 
 function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
-  console.log(basket)
   const classes = useStyles();
   const basketExists = (id) => {
     for (let i = 0; i < basket.length; i++) {
@@ -40,9 +39,7 @@ function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
     }
     return -1;
   };
-  const [checked, setChecked] = React.useState(basketExists(card.id) !== -1);
   const handleChange = () => {
-    setChecked(!checked);
     const id = basketExists(card.id);
     if (id === -1) {
       addToBasket({
@@ -52,24 +49,16 @@ function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
     } else {
       deleteFromBasket(id);
     }
-    //console.log(basket);
   };
-
   return (
     <Card className={classes.root}>
       <CardContent>
         <Checkbox
-          checked={checked}
+          checked={basketExists(card.id) !== -1}
           onChange={handleChange}
           color='primary'
           inputProps={{ 'aria-label': 'primary checkbox' }}
         />
-        {/* <Typography
-          className={classes.title}
-          color='textSecondary'
-          gutterBottom>
-          Word of the Day
-        </Typography> */}
         <Typography variant='h5' component='h2'>
           {card.name}
         </Typography>

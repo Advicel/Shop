@@ -8,7 +8,11 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
-import { addToBasket, deleteFromBasket } from '../../redux/actions';
+import {
+  addToBasket,
+  deleteFromBasket,
+  changeCardCount,
+} from '../../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,11 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BasketModal({ basket, deleteFromBasket}) {
+function BasketModal({ basket, deleteFromBasket, changeCardCount }) {
   console.log(basket);
-  
-//   //КАСТЫЛЬ
-//   const [refresh, setRefresh] = useState(false);
 
   const classes = useStyles();
 
@@ -43,13 +44,24 @@ function BasketModal({ basket, deleteFromBasket}) {
   const removeHandler = (id) => {
     if (basket[id].count === 1) {
       deleteFromBasket(id);
+      return;
+      
     }
-    // //КАСТЫЛЬ
-    // setRefresh(!refresh);
-    console.log('remove', id);
+    let newCount = basket[id].count;
+    const newCard = {
+      card:basket[id].card,
+      count:--newCount,
+    };
+    changeCardCount([id, newCard]);
   };
-  const addHandler = () => {
-    console.log('add');
+  const addHandler = (id) => {
+    
+    let newCount = basket[id].count;
+    const newCard = {
+      card:basket[id].card,
+      count:++newCount,
+    };
+    changeCardCount([id, newCard]);
   };
 
   if (!basket.length) {
@@ -65,7 +77,10 @@ function BasketModal({ basket, deleteFromBasket}) {
               secondary={`${card.card.price}$ x ${card.count}`}
             />
             <ListItemSecondaryAction>
-              <IconButton edge='end' aria-label='comments' onClick={addHandler}>
+              <IconButton
+                edge='end'
+                aria-label='comments'
+                onClick={() => addHandler(index)}>
                 <AddIcon />
               </IconButton>
               <IconButton
@@ -92,6 +107,7 @@ const getReduxState = (state) => {
 const setReduxState = {
   addToBasket,
   deleteFromBasket,
+  changeCardCount,
 };
 
 export default connect(getReduxState, setReduxState)(BasketModal);
