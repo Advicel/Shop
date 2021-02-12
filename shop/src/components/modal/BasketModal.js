@@ -3,11 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux';
-import { List } from '@material-ui/core';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import BasketList from './BasketList';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -20,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    width: '50%',
   },
 }));
 
-function BasketModal({ basket }) {
-  console.log("basket",basket);
+export default function BasketModal() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -55,25 +51,10 @@ function BasketModal({ basket }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id='transition-modal-title'>Basket</h2>
-            <List>
-              {basket.map((card) => {
-                return(
-                <ListItem key ={card.card.id} button>
-                  <ListItemText primary={card.card.name} />
-                </ListItem>
-                );
-              })}
-            </List>
+            <BasketList />
           </div>
         </Fade>
       </Modal>
     </div>
   );
 }
-const getReduxState = (state) => {
-  return {
-    basket: state.basket.basket,
-  };
-};
-
-export default connect(getReduxState, null)(BasketModal);

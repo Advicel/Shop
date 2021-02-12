@@ -12,6 +12,7 @@ function ShopContent({ filter, data }) {
         filter.minPrice === null) &&
       card.name.startsWith(filter.namePattern)
   );
+
   if (!data.length) {
     return <h3 className={styles.shopContent}>Товыры не найдены</h3>;
   }
@@ -40,7 +41,7 @@ const useStyles = makeStyles(
 );
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  //console.log(state);
   return {
     filter: state.filter,
   };

@@ -11,8 +11,9 @@ export const basketReducer = (state = initialState, action) => {
         ...state,
         basket: state.basket.concat(action.payload),
       };
-    case DELETE_FROM_BASKET:
+    case DELETE_FROM_BASKET:{
         state.basket.splice(action.payload,1);
+    }
     default:
       return state;
   }

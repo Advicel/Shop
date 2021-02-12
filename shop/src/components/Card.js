@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 });
 
 function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
+  console.log(basket)
   const classes = useStyles();
   const basketExists = (id) => {
     for (let i = 0; i < basket.length; i++) {
@@ -39,8 +40,7 @@ function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
     }
     return -1;
   };
-  const [checked, setChecked] = React.useState(basketExists(card.id)!==-1);
-  console.log(basket);
+  const [checked, setChecked] = React.useState(basketExists(card.id) !== -1);
   const handleChange = () => {
     setChecked(!checked);
     const id = basketExists(card.id);
