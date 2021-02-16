@@ -42,7 +42,7 @@ const useStyles = makeStyles(
       margin: '0 auto',
     },
     logo: {
-      width: 100,
+      width: "10vh",
     },
     menuPlusBasket: {
       display: 'flex',
