@@ -1,10 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import { makeStyles,Typography,Slider } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { setPriceFilter } from '../../redux/actions';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   root: {
@@ -19,12 +16,10 @@ function PriceFilter({ setPriceFilter, data }) {
   const price = [...new Set(data.map((item) => item.price))];
   const minPrice = Math.min(...price);
   const maxPrice = Math.max(...price);
-  //console.log(price);
   const classes = useStyles();
   const [value, setValue] = React.useState([minPrice, maxPrice]);
 
   const handleChange = (event, newValue) => {
-    //setPriceFilter(newValue);
     setValue(newValue);
   };
   const handleClick= () =>{

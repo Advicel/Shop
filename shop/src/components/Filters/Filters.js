@@ -1,10 +1,25 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
+
 import CategoryFilter from './CategoryFilter.js';
 import PriceFilter from './PriceFilter.js';
-import Paper from '@material-ui/core/Paper';
 
-//import Search from './Search.js';
+const useStyles = makeStyles(
+  {
+    filters: {
+      paddingTop: 10,
+      minWidth: 200,
+      height: 'fit-content',
+    },
+    filtersWrapper: {
+      margin: '0 auto',
+      width: '80%',
+    },
+  },
+  {
+    name: 'Filters',
+  }
+);
 
 export default function Filters({ data }) {
   const styles = useStyles();
@@ -18,22 +33,3 @@ export default function Filters({ data }) {
   );
   return filters;
 }
-
-const useStyles = makeStyles(
-  {
-    filters: {
-      paddingTop:10,
-      minWidth: 200,
-      height: 'fit-content',
-    },
-    filtersWrapper: {
-      margin: '0 auto',
-      width: '80%',
-      // display: 'flex',
-      // justifyContent:"space-around",
-    },
-  },
-  {
-    name: 'Filters',
-  }
-);

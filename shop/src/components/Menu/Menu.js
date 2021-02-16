@@ -6,10 +6,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ThemeSwitcher from '../ThemeSwitcher';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import { Link } from 'react-router-dom';
+import PersonIcon from '@material-ui/icons/Person';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import HomeIcon from '@material-ui/icons/Home';
 
 const StyledMenu = withStyles({
   paper: {
@@ -80,7 +80,7 @@ export default function CustomizedMenus({ onClick }) {
         onClose={handleClose}>
         <StyledMenuItem>
           <ListItemIcon>
-            <SendIcon fontSize='small' />
+            <HomeIcon fontSize='small' />
           </ListItemIcon>
           <Link to='/' color='primary'>
             Home
@@ -88,7 +88,7 @@ export default function CustomizedMenus({ onClick }) {
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemIcon>
-            <DraftsIcon fontSize='small' />
+            <PersonIcon fontSize='small' />
           </ListItemIcon>
           <Link to='/profile' color='primary'>
             Profile
@@ -96,7 +96,7 @@ export default function CustomizedMenus({ onClick }) {
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemIcon>
-            <InboxIcon fontSize='small' />
+            <ShoppingCartIcon fontSize='small' />
           </ListItemIcon>
           <Link to='/basket' color='primary'>
             Basket

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import { connect } from 'react-redux';
-import { List, Typography } from '@material-ui/core';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+  makeStyles,
+} from '@material-ui/core';
+import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons';
+
 import {
   addToBasket,
   deleteFromBasket,
@@ -27,13 +29,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '50%',
   },
-  h3:{
-    margin:0,
+  h3: {
+    margin: 0,
+  },
+  summ: {
+    backgroundColor: '#fdfdd5',
   },
 }));
 
 function BasketList({ basket, deleteFromBasket, changeCardCount }) {
-
   const styles = useStyles();
 
   const getBasketSumm = () => {
@@ -47,21 +51,19 @@ function BasketList({ basket, deleteFromBasket, changeCardCount }) {
     if (basket[id].count === 1) {
       deleteFromBasket(id);
       return;
-      
     }
     let newCount = basket[id].count;
     const newCard = {
-      card:basket[id].card,
-      count:--newCount,
+      card: basket[id].card,
+      count: --newCount,
     };
     changeCardCount([id, newCard]);
   };
   const addHandler = (id) => {
-    
     let newCount = basket[id].count;
     const newCard = {
-      card:basket[id].card,
-      count:++newCount,
+      card: basket[id].card,
+      count: ++newCount,
     };
     changeCardCount([id, newCard]);
   };
@@ -79,7 +81,6 @@ function BasketList({ basket, deleteFromBasket, changeCardCount }) {
               secondary={`${card.card.price}$ x ${card.count}`}
             />
             <ListItemSecondaryAction>
-              
               <IconButton
                 edge='end'
                 aria-label='comments'
@@ -97,8 +98,9 @@ function BasketList({ basket, deleteFromBasket, changeCardCount }) {
           </ListItem>
         );
       })}
-      <ListItem>
-        <ListItemText primary={'summ'} secondary={`${getBasketSumm()} $`} />
+
+      <ListItem className={styles.summ}>
+        <ListItemText primary={'Itog:'} secondary={`${getBasketSumm()} $`} />
       </ListItem>
     </List>
   );

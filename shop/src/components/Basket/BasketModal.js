@@ -1,14 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import {connect} from 'react-redux';
-import Fade from '@material-ui/core/Fade';
-import BasketList from './BasketList.js';
-import Badge from '@material-ui/core/Badge';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
+import {
+  Modal,
+  Backdrop,
+  Fade,
+  Badge,
+  IconButton,
+  makeStyles,
+  withStyles,
+} from '@material-ui/core';
+import { connect } from 'react-redux';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
+import BasketList from './BasketList.js';
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -32,13 +35,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '50%',
   },
-  shoppingCart:{
-    height:40,
-    width:40,
+  shoppingCart: {
+    height: 40,
+    width: 40,
+  },
+  basketWrapper: {
+    margin: '0 10px',
   },
 }));
 
-function BasketModal({basket}) {
+function BasketModal({ basket }) {
   const styles = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -51,9 +57,9 @@ function BasketModal({basket}) {
   };
 
   return (
-    <div>
+    <div className={styles.basketWrapper}>
       <IconButton aria-label='cart' onClick={handleOpen}>
-        <StyledBadge  badgeContent={basket.length||null} color='secondary' >
+        <StyledBadge badgeContent={basket.length || null} color='secondary'>
           <ShoppingCartIcon className={styles.shoppingCart} />
         </StyledBadge>
       </IconButton>

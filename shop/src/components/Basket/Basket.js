@@ -1,17 +1,16 @@
 import React from 'react';
-import BasketList from './BasketList';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core';
 
+import BasketList from './BasketList';
+
 const useStyles = makeStyles(
   {
-    basketWrapper: {
-      margin: '0 auto',
-      width: '60%',
-      //display: 'flex',
+    basketList: {
       height: '100vh',
-      //overflowY: 'scroll',
-      padding:15,
+      width: '60%',
+      margin: '0 auto',
+      padding: 15,
     },
   },
   {
@@ -22,7 +21,7 @@ const useStyles = makeStyles(
 export default function Basket() {
   const styles = useStyles();
   return (
-    <Paper className={styles.basketWrapper}>
+    <Paper className={styles.basketList}>
       <BasketList />
     </Paper>
   );

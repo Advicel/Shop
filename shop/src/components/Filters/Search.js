@@ -1,12 +1,9 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import { setNamePattern } from '../../redux/actions';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
+import { Paper, InputBase, IconButton, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+
+import { setNamePattern } from '../../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
