@@ -6,6 +6,7 @@ import BasketModal from '../Basket/BasketModal';
 import Search from '../Filters/Search.js';
 import logo from '../../imgs/harvest.svg';
 import CustomizedMenus from '../Menu/Menu.js';
+import NewMenu from '../Menu/NewMenu'; 
 
 export default function Header({ onClick }) {
   const styles = useStyles();
@@ -21,6 +22,7 @@ export default function Header({ onClick }) {
           <BasketModal />
           <CustomizedMenus onClick={onClick} />
         </div>
+        <NewMenu onClick={onClick}/>
       </div>
     </div>
   );

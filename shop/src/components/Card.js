@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     minWidth: 275,
     maxWidth: 300,
     marginBottom: 20,
-    border: '1px solid black',
+    //border: '1px solid black',
   },
   bullet: {
     display: 'inline-block',
@@ -51,7 +51,7 @@ function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
     }
   };
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} variant="outlined">
       <CardContent>
         <Checkbox
           checked={basketExists(card.id) !== -1}
