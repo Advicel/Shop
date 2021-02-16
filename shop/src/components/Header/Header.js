@@ -4,18 +4,22 @@ import logo from '../../imgs/harvest.svg';
 import React from 'react';
 import CustomizedMenus from '../Menu/Menu.js';
 import { Link } from 'react-router-dom';
+import BasketModal from '../Basket/BasketModal';
 
-export default function Header() {
+export default function Header({ onClick }) {
   const styles = useStyles();
   return (
     <div className={styles.header}>
       <div className={styles.headerWrapper}>
-          <Link to='/'>
-            <img className={styles.logo} src={logo} />
-          </Link>
+        <Link to='/'>
+          <img className={styles.logo} src={logo} />
+        </Link>
 
         <Search />
-        <CustomizedMenus />
+        <div className={styles.menuPlusBasket}>
+          <BasketModal />
+          <CustomizedMenus onClick={onClick} />
+        </div>
       </div>
     </div>
   );
@@ -38,6 +42,10 @@ const useStyles = makeStyles(
     },
     logo: {
       width: 100,
+    },
+    menuPlusBasket: {
+      display: 'flex',
+      alignItems: 'center',
     },
   },
   {

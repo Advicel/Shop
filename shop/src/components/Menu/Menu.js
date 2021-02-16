@@ -1,14 +1,15 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import ThemeSwitcher from '../ThemeSwitcher';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const StyledMenu = withStyles({
   paper: {
@@ -41,7 +42,16 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function CustomizedMenus() {
+const useStyles = makeStyles(
+  {
+    switcher: {
+      textAlign: 'center',
+    },
+  },
+  { name: 'Menu' }
+);
+export default function CustomizedMenus({ onClick }) {
+  const styles = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -55,41 +65,49 @@ export default function CustomizedMenus() {
   return (
     <div>
       <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
+        aria-controls='customized-menu'
+        aria-haspopup='true'
+        variant='contained'
+        color='primary'
+        onClick={handleClick}>
         Open Menu
       </Button>
       <StyledMenu
-        id="customized-menu"
+        id='customized-menu'
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+        onClose={handleClose}>
         <StyledMenuItem>
           <ListItemIcon>
-            <SendIcon fontSize="small" />
+            <SendIcon fontSize='small' />
           </ListItemIcon>
-          <Link to="/" color="primary">Home</Link>
-          
-          {/* <ListItemText primary="Basket" /> */}
+          <Link to='/' color='primary'>
+            Home
+          </Link>
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemIcon>
-            <DraftsIcon fontSize="small" />
+            <DraftsIcon fontSize='small' />
           </ListItemIcon>
-          <Link to="/profile" color="primary">Profile</Link>
+          <Link to='/profile' color='primary'>
+            Profile
+          </Link>
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemIcon>
-            <InboxIcon fontSize="small" />
+            <InboxIcon fontSize='small' />
           </ListItemIcon>
-          <Link to="/basket" color="primary">Basket</Link>
+          <Link to='/basket' color='primary'>
+            Basket
+          </Link>
         </StyledMenuItem>
+        <div className={styles.switcher}>
+          <ThemeSwitcher
+            onChange={onClick}
+            // value={darkMode}
+          />
+        </div>
       </StyledMenu>
     </div>
   );

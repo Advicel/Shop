@@ -22,6 +22,7 @@ export default function Filters({ data }) {
 const useStyles = makeStyles(
   {
     filters: {
+      paddingTop:10,
       minWidth: 200,
       height: 'fit-content',
     },

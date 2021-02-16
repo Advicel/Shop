@@ -21,6 +21,7 @@ const useStyles = makeStyles(
     bodyWrapper: {
       display: 'flex',
       width: '95%',
+      marginTop:15,
       margin: '0 auto',
     },
   },

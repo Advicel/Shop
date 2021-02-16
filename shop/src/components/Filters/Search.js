@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
-    height:40,
+    width: '40%',
+    height: 40,
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search({setNamePattern}) {
+function Search({ setNamePattern }) {
   const classes = useStyles();
 
   const changeHanler = (event) => {
@@ -34,13 +34,16 @@ function Search({setNamePattern}) {
 
   return (
     <Paper component='form' className={classes.root}>
-      <InputBase className={classes.input} placeholder='Search' onChange={changeHanler}/>
+      <InputBase
+        className={classes.input}
+        placeholder='Search'
+        onChange={changeHanler}
+      />
       <IconButton
         type='submit'
         className={classes.iconButton}
         aria-label='search'
-        disabled
-        >
+        disabled>
         <SearchIcon />
       </IconButton>
     </Paper>

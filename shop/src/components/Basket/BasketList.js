@@ -27,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '50%',
   },
+  h3:{
+    margin:0,
+  },
 }));
 
-function BasketModal({ basket, deleteFromBasket, changeCardCount }) {
-  console.log(basket);
+function BasketList({ basket, deleteFromBasket, changeCardCount }) {
 
-  const classes = useStyles();
+  const styles = useStyles();
 
   const getBasketSumm = () => {
     let summ = 0;
@@ -65,7 +67,7 @@ function BasketModal({ basket, deleteFromBasket, changeCardCount }) {
   };
 
   if (!basket.length) {
-    return <h3>Корзина пуста</h3>;
+    return <h3 className={styles.h3}>Корзина пуста</h3>;
   }
   return (
     <List>
@@ -77,17 +79,19 @@ function BasketModal({ basket, deleteFromBasket, changeCardCount }) {
               secondary={`${card.card.price}$ x ${card.count}`}
             />
             <ListItemSecondaryAction>
-              <IconButton
-                edge='end'
-                aria-label='comments'
-                onClick={() => addHandler(index)}>
-                <AddIcon />
-              </IconButton>
+              
               <IconButton
                 edge='end'
                 aria-label='comments'
                 onClick={() => removeHandler(index)}>
                 <RemoveIcon />
+              </IconButton>
+
+              <IconButton
+                edge='end'
+                aria-label='comments'
+                onClick={() => addHandler(index)}>
+                <AddIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
@@ -110,4 +114,4 @@ const setReduxState = {
   changeCardCount,
 };
 
-export default connect(getReduxState, setReduxState)(BasketModal);
+export default connect(getReduxState, setReduxState)(BasketList);
