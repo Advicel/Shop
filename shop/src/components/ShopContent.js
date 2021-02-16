@@ -10,7 +10,7 @@ function ShopContent({ filter, data }) {
       (card.category === filter.category || filter.category === 'All') &&
       ((card.price >= filter.minPrice && card.price <= filter.maxPrice) ||
         filter.minPrice === null) &&
-      card.name.startsWith(filter.namePattern)
+      card.name.toLowerCase().startsWith(filter.namePattern.toLowerCase())
   );
 
   if (!data.length) {

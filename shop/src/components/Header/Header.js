@@ -2,14 +2,20 @@ import { makeStyles } from '@material-ui/core';
 import Search from '../Filters/Search.js';
 import logo from '../../imgs/harvest.svg';
 import React from 'react';
+import CustomizedMenus from '../Menu/Menu.js';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const styles = useStyles();
   return (
     <div className={styles.header}>
       <div className={styles.headerWrapper}>
-        <img className={styles.logo} src={logo}></img>
+          <Link to='/'>
+            <img className={styles.logo} src={logo} />
+          </Link>
+
         <Search />
+        <CustomizedMenus />
       </div>
     </div>
   );
