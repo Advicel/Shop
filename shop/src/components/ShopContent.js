@@ -41,7 +41,6 @@ const useStyles = makeStyles(
 );
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     filter: state.filter,
   };

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '40%',
-    height: 40,
+    height: "4vh",
   },
   input: {
     marginLeft: theme.spacing(1),

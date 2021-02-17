@@ -9,36 +9,41 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ThemeSwitcher from '../ThemeSwitcher';
-import { Typography } from '@material-ui/core';
-
 
 import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
+const useStyles = makeStyles(
+  {
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: 'auto',
+    },
+    switcher: {
+      textAlign: 'center',
+    },
+    buttonMenu: {
+      height: '4vh',
+    },
+    li: {
+      position: 'relative',
+    },
+    link: {
+      textDecoration: 'none',
+      width: '100%',
+      position: 'absolute',
+      textAlign: 'center',
+    },
   },
-  fullList: {
-    width: 'auto',
-  },
-  switcher: {
-    textAlign: 'center',
-  },
-  buttonMen:{
-    height:"5vh",
-  },
-  li:{
-    textDecoration:"none",
-    color:"primary",
-  },
-},  { name: 'newMenu' });
+  { name: 'newMenu' }
+);
 
 export default function NewMenu({ onClick }) {
   const styles = useStyles();
-  const [right, setState] = React.useState(true);
+  const [right, setState] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -57,40 +62,38 @@ export default function NewMenu({ onClick }) {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}>
       <List>
-        <ListItem button>
+        <ListItem className={styles.li} button>
           <ListItemIcon>
             <PersonIcon fontSize='small' />
           </ListItemIcon>
-          <Link className={styles.li}  to='/profile' color='primary'>
-            {/* <Typography color="primary">qwe</Typography> */}
-            Profile
+          <Link className={styles.link} to='/profile' color='primary'>
+            <Typography color='textPrimary'>Profile</Typography>
           </Link>
         </ListItem>
-        <ListItem button>
+        <ListItem className={styles.li} button>
           <ListItemIcon>
             <HomeIcon fontSize='small' />
           </ListItemIcon>
-          <Link to='/' color='primary'>
-            
-            Home
+          <Link className={styles.link} to='/' color='primary'>
+            <Typography color='textPrimary'>Home</Typography>
           </Link>
         </ListItem>
-        <ListItem button>
+        <ListItem className={styles.li} button>
           <ListItemIcon>
             <ShoppingCartIcon fontSize='small' />
           </ListItemIcon>
-          <Link to='/basket' color='primary'>
-            Basket
+          <Link className={styles.link} to='/basket' color='primary'>
+            <Typography color='textPrimary'>Basket</Typography>
           </Link>
         </ListItem>
       </List>
-
     </div>
   );
 
   return (
     <div>
       <Button
+        className={styles.buttonMenu}
         aria-controls='customized-menu'
         aria-haspopup='true'
         variant='contained'

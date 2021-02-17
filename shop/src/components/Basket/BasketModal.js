@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
   },
   shoppingCart: {
-    height: 40,
-    width: 40,
+    height: '4vh',
+    width: '4vh',
   },
   basketWrapper: {
     margin: '0 10px',

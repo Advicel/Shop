@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import BasketModal from '../Basket/BasketModal';
 import Search from '../Filters/Search.js';
 import logo from '../../imgs/harvest.svg';
-import CustomizedMenus from '../Menu/Menu.js';
+//import CustomizedMenus from '../Menu/Menu.js';
 import NewMenu from '../Menu/NewMenu'; 
 
 export default function Header({ onClick }) {
@@ -20,9 +20,10 @@ export default function Header({ onClick }) {
         <Search />
         <div className={styles.menuPlusBasket}>
           <BasketModal />
-          <CustomizedMenus onClick={onClick} />
+          {/* <CustomizedMenus onClick={onClick} /> */}
+          <NewMenu onClick={onClick}/>
         </div>
-        <NewMenu onClick={onClick}/>
+        
       </div>
     </div>
   );
@@ -32,7 +33,9 @@ const useStyles = makeStyles(
   {
     header: {
       background:
-        'linear-gradient(90deg, rgba(241,255,246,1) 0%, rgba(104,233,149,1) 30%, rgba(6,198,60,1) 100%)',
+         'linear-gradient(90deg, rgba(241,255,246,1) 0%, rgba(104,233,149,1) 30%, rgba(6,198,60,1) 100%)',
+      //background: "rgb(185,201,255)",
+      //background: "linear-gradient(90deg, rgba(185,201,255,1) 0%, rgba(13,53,246,1) 100%)",
       height: "13vh",
     },
     headerWrapper: {
