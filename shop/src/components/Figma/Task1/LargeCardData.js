@@ -11,7 +11,7 @@ import potrebl from '../../../imgs/potrebl.png';
 import pryamRash from '../../../imgs/pryamRash.png';
 import predost from '../../../imgs/predost.png';
 import DownArrow from '../../../imgs/Task1Down.png';
-import DownUp from '../../../imgs/Task1Up.png';
+import UpArrow from '../../../imgs/Task1Up.png';
 
 const useStyles = makeStyles(
   {
@@ -23,7 +23,8 @@ const useStyles = makeStyles(
       alignItems: 'center',
       fontSize: 12,
       color: '#657D95',
-      marginRight:64,
+      marginBottom:10,
+      //marginRight:64,
     },
     headerImg: {
       width: 18,
@@ -39,7 +40,7 @@ const useStyles = makeStyles(
     },
     differenceWrapper: {
       display: 'flex',
-      color: 'red',
+      color: (diff)=>diff[0] ==="red" ? "red" : "green", 
       alignItems: 'center',
     },
     differenceImg: {
@@ -88,13 +89,17 @@ const useStyles = makeStyles(
 );
 
 export default function LargeCardData({ data, currency, year }) {
+
+  const diff = difference(data.mainSum, data.secondarySum);
+  console.log(diff);
+
   const headerImage =
     data.header === 'потребляет'
       ? potrebl
       : data.header === 'прямые расходы'
       ? pryamRash
       : predost;
-  const styles = useStyles();
+  const styles = useStyles(diff);
   return (
     <div className={styles.dataWrapper}>
       <div className={styles.headerWrapper}>
@@ -106,8 +111,8 @@ export default function LargeCardData({ data, currency, year }) {
         <Typography className={styles.mainSumCurr}>{currency}</Typography>
 
         <div className={styles.differenceWrapper}>
-          <img className={styles.differenceImg} src={DownArrow}></img>
-          <p> -4 %</p>
+          <img className={styles.differenceImg} src={diff[0]==="red" ? DownArrow : UpArrow}></img>
+          <Typography> {`${diff[0]==="red" ? "-" : ""}${diff[1]} %`}</Typography>
         </div>
       </div>
 
@@ -121,4 +126,19 @@ export default function LargeCardData({ data, currency, year }) {
       </div>
     </div>
   );
+}
+
+function difference(sum1, sum2) {
+  sum1 = +sum1.split(' ').join('');
+  sum2 = +sum2.split(' ').join('');
+  let result = [null, null];
+  let difference;
+  if (sum1 > sum2) {
+    result[1] = Math.trunc(((sum1/sum2)-(Math.trunc(sum1/sum2)))*100);
+    result[0] = 'green';
+  } else {
+    result[1]=Math.trunc(((sum2/sum1)-(Math.trunc(sum2/sum1)))*100);
+    result[0] = 'red';
+  }
+  return result;
 }

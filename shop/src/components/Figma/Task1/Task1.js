@@ -59,7 +59,7 @@ const card1 = {
   mainSum: '419',
   currency: 'р./ед.',
   year: 2019,
-  secondarySum: 436,
+  secondarySum: "436",
   secondaryCurrency: 'р./ед.',
   color: 'rgba(87, 148, 222, 0.2)',
   background:"blue",

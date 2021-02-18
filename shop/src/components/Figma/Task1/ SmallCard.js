@@ -5,26 +5,26 @@ import {
   makeStyles,
   Typography,
   CardContent,
-  CardMedia
+  CardMedia,
 } from '@material-ui/core';
 import DownArrow from '../../../imgs/Task1Down.png';
-import DownUp from '../../../imgs/Task1Up.png';
+import UpArrow from '../../../imgs/Task1Up.png';
 import blueBackground from '../../../imgs/Card1Hover.svg';
 import greenBackground from '../../../imgs/Card2Hover.png';
 
 const useStyles = makeStyles(
   {
     card: {
-      width: '11%',
+      width: '6%',
       position: 'relative',
       flexGrow: '1',
       borderRadius: 12,
-      background: (card) => card.color,
-      // backgroundImage: (card)=>card.background ==="blue" ? `url(${blueBackground})` : `url(${greenBackground})` ,
-      //       backgroundRepeat: 'no-repeat',
-      //   backgroundSize: 'cover',
+      background: (color) => color[0],
       '&:hover': {
-        backgroundImage: (card)=>card.background ==="blue" ? `url(${blueBackground})` : `url(${greenBackground})` ,
+        backgroundImage: (color) =>
+          color[1] === 'blue'
+            ? `url(${blueBackground})`
+            : `url(${greenBackground})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
       },
@@ -52,7 +52,8 @@ const useStyles = makeStyles(
     },
     differenceWrapper: {
       display: 'flex',
-      color: 'red',
+      color: (color) => (color[2] === 'red' ? 'red' : 'green'),
+      //color: 'red',
       alignItems: 'center',
     },
     differenceImg: {
@@ -121,7 +122,10 @@ const useStyles = makeStyles(
 );
 
 export default function SmallCard({ card }) {
-  const styles = useStyles(card);
+  const diff = difference(card.mainSum, card.secondarySum);
+  console.log(diff);
+  const colors = [card.color, card.background, diff[0]];
+  const styles = useStyles(colors);
   return (
     <Card className={styles.card}>
       <CardContent className={styles.wrapper}>
@@ -129,8 +133,13 @@ export default function SmallCard({ card }) {
         <div className={styles.mainSumWrapper}>
           <Typography className={styles.mainSum}>{card.mainSum}</Typography>
           <div className={styles.differenceWrapper}>
-            <img className={styles.differenceImg} src={DownArrow}></img>
-            <Typography> -4 %</Typography>
+            <img
+              className={styles.differenceImg}
+              src={diff[0] === 'red' ? DownArrow : UpArrow}></img>
+            <Typography>
+              {' '}
+              {`${diff[0] === 'red' ? '-' : ''}${diff[1]} %`}
+            </Typography>
           </div>
         </div>
         <Typography className={styles.mainSumCurr}>{card.currency}</Typography>
@@ -150,4 +159,19 @@ export default function SmallCard({ card }) {
       </div>
     </Card>
   );
+}
+
+function difference(sum1, sum2) {
+  sum1 = +sum1.split(' ').join('');
+  sum2 = +sum2.split(' ').join('');
+  let result = [null, null];
+  let difference;
+  if (sum1 > sum2) {
+    result[1] = Math.trunc((sum1 / sum2 - Math.trunc(sum1 / sum2)) * 100);
+    result[0] = 'green';
+  } else {
+    result[1] = Math.trunc((sum2 / sum1 - Math.trunc(sum2 / sum1)) * 100);
+    result[0] = 'red';
+  }
+  return result;
 }
