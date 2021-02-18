@@ -1,8 +1,7 @@
 import React from 'react';
 //import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
+import {Drawer, Button} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -84,6 +83,22 @@ export default function NewMenu({ onClick }) {
           </ListItemIcon>
           <Link className={styles.link} to='/basket' color='primary'>
             <Typography color='textPrimary'>Basket</Typography>
+          </Link>
+        </ListItem>
+        <ListItem className={styles.li} button>
+          <ListItemIcon>
+            <ShoppingCartIcon fontSize='small' />
+          </ListItemIcon>
+          <Link className={styles.link} to='/Table' color='primary'>
+            <Typography color='textPrimary'>table</Typography>
+          </Link>
+        </ListItem>
+        <ListItem className={styles.li} button>
+          <ListItemIcon>
+            <ShoppingCartIcon fontSize='small' />
+          </ListItemIcon>
+          <Link className={styles.link} to='/Task1' color='primary'>
+            <Typography color='textPrimary'>task1</Typography>
           </Link>
         </ListItem>
       </List>
