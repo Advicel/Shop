@@ -21,6 +21,7 @@ const useStyles = makeStyles(
       display:"flex",
       justifyContent:"center",
       alignItems:"center",
+      borderRadius: 12,
     },
     wrapper: {
         width:"93%",

@@ -91,7 +91,6 @@ const useStyles = makeStyles(
 export default function LargeCardData({ data, currency, year }) {
 
   const diff = difference(data.mainSum, data.secondarySum);
-  console.log(diff);
 
   const headerImage =
     data.header === 'потребляет'

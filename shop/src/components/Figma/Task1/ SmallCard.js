@@ -165,7 +165,6 @@ function difference(sum1, sum2) {
   sum1 = +sum1.split(' ').join('');
   sum2 = +sum2.split(' ').join('');
   let result = [null, null];
-  let difference;
   if (sum1 > sum2) {
     result[1] = Math.trunc((sum1 / sum2 - Math.trunc(sum1 / sum2)) * 100);
     result[0] = 'green';

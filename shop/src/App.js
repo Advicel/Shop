@@ -26,7 +26,7 @@ export default function App({ data }) {
           <Header onClick={() => setDarkMode(!darkMode)} />
           <Switch>
             <Route path='/Table'>
-              <Table/>
+              <Table data={data}/>
             </Route>
             <Route path='/Task1'>
               <Task1/>
