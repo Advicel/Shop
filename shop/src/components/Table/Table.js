@@ -1,5 +1,7 @@
 import { makeStyles, Paper } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
 import React, { useState } from 'react';
+import { Scrollbar } from 'react-scrollbars-custom';
 import './styles.css';
 
 const useStyles = makeStyles(
@@ -7,7 +9,7 @@ const useStyles = makeStyles(
     tableWrapper: {
       marginTop: 10,
       width: '40%',
-      height: 400,
+      //height: 400,
       margin: '0 auto',
       overflow: 'scroll',
     },
@@ -20,6 +22,9 @@ const useStyles = makeStyles(
       position: 'sticky',
       zIndex: 3,
       left: 0,
+    },
+    editableDiv: {
+      height: '100%',
     },
   },
   {
@@ -43,8 +48,10 @@ export default function Table({ data }) {
       <tr className={styles.tr} key={row.id}>
         <td className={styles.stickyColumn}>{row.name}</td>
         <td>
-          <div contentEditable={change} suppressContentEditableWarning={true}>
-            {' '}
+          <div
+            className={styles.editableDiv}
+            contentEditable={change}
+            suppressContentEditableWarning={true}>
             {row.price}
           </div>
         </td>
@@ -61,7 +68,35 @@ export default function Table({ data }) {
   });
   return (
     <Paper>
-      <div className={styles.tableWrapper}>
+      <Scrollbar
+        trackXProps={{
+          style: {
+            height: 10,
+            bottom: -10,
+            display: 'block',
+          },
+        }}
+        thumbXProps={{
+          style: {
+            background: 'rgba(31, 142, 250, 0.4)',
+            height: 10,
+            borderRadius: 2,
+          },
+        }}
+        trackYProps={{
+          style: {
+            width: 10,
+            right: -10,
+          },
+        }}
+        thumbYProps={{
+          style: {
+            background: 'rgba(31, 142, 250, 0.4)',
+            width: 10,
+            borderRadius: 2,
+          },
+        }}
+        style={{ color: red, width: "40%", height: 400 ,margin:"0 auto"}}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -77,12 +112,9 @@ export default function Table({ data }) {
               <th>maker</th>
             </tr>
           </thead>
-          <tbody>
-            {rows}
-            {rows}
-          </tbody>
+          <tbody>{rows}</tbody>
         </table>
-      </div>
+      </Scrollbar>
       <button disabled={change} onClick={() => handleChangeButton()}>
         редактировать цену
       </button>
@@ -92,4 +124,3 @@ export default function Table({ data }) {
     </Paper>
   );
 }
-
