@@ -31,14 +31,7 @@ const useStyles = makeStyles({
 
 function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
   const classes = useStyles();
-  const basketExists = (id) => {
-    for (let i = 0; i < basket.length; i++) {
-      if (basket[i].card.id === id) {
-        return i;
-      }
-    }
-    return -1;
-  };
+  const basketExists = (id) => basket.findIndex((x) => x.card.id === id);
   const handleChange = () => {
     const id = basketExists(card.id);
     if (id === -1) {
@@ -51,7 +44,7 @@ function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
     }
   };
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root} variant='outlined'>
       <CardContent>
         <Checkbox
           checked={basketExists(card.id) !== -1}

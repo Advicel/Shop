@@ -14,10 +14,10 @@ function valuetext(value) {
 }
 function PriceFilter({ setPriceFilter, data }) {
   const price = [...new Set(data.map((item) => item.price))];
-  const minPrice = Math.min(...price);
+  //const minPrice = Math.min(...price);
   const maxPrice = Math.max(...price);
   const classes = useStyles();
-  const [value, setValue] = React.useState([minPrice, maxPrice]);
+  const [value, setValue] = React.useState([0, maxPrice]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -32,7 +32,7 @@ function PriceFilter({ setPriceFilter, data }) {
         Price range
       </Typography>
       <Slider
-        min={minPrice}
+        min={0}
         max={maxPrice}
         value={value}
         onChange={handleChange}

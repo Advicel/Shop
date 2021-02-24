@@ -16,7 +16,11 @@ const useStyles = makeStyles(
       zIndex: 3,
       left: 0,
     },
+    table: {
+      width: '100%',
+    },
   },
+
   {
     name: 'Table',
   }
@@ -82,6 +86,7 @@ export default function Table({ data }) {
         }}
         thumbYProps={{
           style: {
+            //right:-10,
             backgroundImage: `url(${Sun})`,
             backgroundSize: 'contain',
             //background: 'rgba(31, 142, 250, 0.4)',

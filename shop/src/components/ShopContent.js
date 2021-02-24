@@ -9,7 +9,7 @@ function ShopContent({ filter, data }) {
     (card) =>
       (card.category === filter.category || filter.category === 'All') &&
       ((card.price >= filter.minPrice && card.price <= filter.maxPrice) ||
-        filter.minPrice === null) &&
+        filter.maxPrice === null) &&
       card.name.toLowerCase().startsWith(filter.namePattern.toLowerCase())
   );
 

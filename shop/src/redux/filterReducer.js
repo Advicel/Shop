@@ -2,7 +2,7 @@ import { CREATE_FILTER, CREATE_NAME_PATTERN, CREATE_PRICE_FILTER } from './types
 
 const initialState = {
   category: 'All',
-  minPrice: null,
+  minPrice: 0,
   maxPrice: null,
   namePattern:"",
 };

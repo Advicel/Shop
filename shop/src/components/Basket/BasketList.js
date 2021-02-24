@@ -40,13 +40,8 @@ const useStyles = makeStyles((theme) => ({
 function BasketList({ basket, deleteFromBasket, changeCardCount }) {
   const styles = useStyles();
 
-  const getBasketSumm = () => {
-    let summ = 0;
-    basket.forEach((card) => {
-      summ += card.count * card.card.price;
-    });
-    return summ;
-  };
+  const getBasketSumm = () =>
+    basket.reduce((sum, card) => sum + card.count * card.card.price, 0);
   const removeHandler = (id) => {
     if (basket[id].count === 1) {
       deleteFromBasket(id);

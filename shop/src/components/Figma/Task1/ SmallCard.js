@@ -19,6 +19,8 @@ const useStyles = makeStyles(
       position: 'relative',
       flexGrow: '1',
       borderRadius: 12,
+      transition: 'all 1s ease',
+      //transition:'background 1s ease',
       background: (color) => color[0],
       '&:hover': {
         backgroundImage: (color) =>
@@ -37,7 +39,6 @@ const useStyles = makeStyles(
     },
     wrapper: {
       width: '70%',
-      //height:"65%",
       margin: '0 auto',
     },
     overMainSum: {
@@ -53,7 +54,6 @@ const useStyles = makeStyles(
     differenceWrapper: {
       display: 'flex',
       color: (color) => (color[2] === 'red' ? 'red' : 'green'),
-      //color: 'red',
       alignItems: 'center',
     },
     differenceImg: {
@@ -63,7 +63,6 @@ const useStyles = makeStyles(
       marginRight: 5,
     },
     mainSum: {
-      //   whiteSpace: 'nowrap',
       fontSize: 36,
       fontFamily: 'Inter',
       lineHeight: '1',
@@ -73,7 +72,6 @@ const useStyles = makeStyles(
       fontSize: 20,
     },
     divider: {
-      //border: '1px solid #657D95',
       color: '#657D95',
       padding: '10px 0px',
       opacity: '0.36',
