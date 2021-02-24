@@ -1,6 +1,4 @@
 
-
-
 td,th{
     z-index: 0;
     vertical-align:top; 
@@ -13,12 +11,6 @@ td,th{
     font-weight: 200;
     color:white;
 }
-.rcs-inner-handle {
-    background-color: inherit;
-    background-image: url("http://rommguy.github.io/react-custom-scroll/example/giraffe-icon.png");
-    background-repeat: no-repeat no-repeat;
-    background-size: cover;
-  }
 th{
     background-color: #657D95;
     z-index: 2;

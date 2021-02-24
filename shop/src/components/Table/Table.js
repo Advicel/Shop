@@ -1,18 +1,11 @@
 import { makeStyles, Paper } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
 import React, { useState } from 'react';
 import { Scrollbar } from 'react-scrollbars-custom';
 import './styles.css';
+import Sun from '../../imgs/Task1Sun.png';
 
 const useStyles = makeStyles(
   {
-    tableWrapper: {
-      marginTop: 10,
-      width: '40%',
-      //height: 400,
-      margin: '0 auto',
-      overflow: 'scroll',
-    },
     stickyColumn: {
       position: 'sticky',
       left: 0,
@@ -22,9 +15,6 @@ const useStyles = makeStyles(
       position: 'sticky',
       zIndex: 3,
       left: 0,
-    },
-    editableDiv: {
-      height: '100%',
     },
   },
   {
@@ -42,27 +32,28 @@ export default function Table({ data }) {
   function handleSaveButton() {
     setChange(false);
   }
+  function handleGetDataButton() {
+    console.log(getDataFromTable());
+  }
 
   const rows = data.map((row) => {
     return (
       <tr className={styles.tr} key={row.id}>
-        <td className={styles.stickyColumn}>{row.name}</td>
-        <td>
+        <td id={'td'} className={styles.stickyColumn}>
+          {row.name}
+        </td>
+        <td id={'td'}>
           <div
+            style={{ height: '100%' }}
             className={styles.editableDiv}
             contentEditable={change}
             suppressContentEditableWarning={true}>
             {row.price}
           </div>
         </td>
-        <td>{row.id}</td>
-        <td>{row.category}</td>
-        <td>{row.maker}</td>
-        <td>{row.name}</td>
-        <td>{row.price}</td>
-        <td>{row.id}</td>
-        <td>{row.category}</td>
-        <td>{row.maker}</td>
+        <td id={'td'}>{row.id}</td>
+        <td id={'td'}>{row.category}</td>
+        <td id={'td'}>{row.maker}</td>
       </tr>
     );
   });
@@ -91,25 +82,24 @@ export default function Table({ data }) {
         }}
         thumbYProps={{
           style: {
-            background: 'rgba(31, 142, 250, 0.4)',
+            backgroundImage: `url(${Sun})`,
+            backgroundSize: 'contain',
+            //background: 'rgba(31, 142, 250, 0.4)',
             width: 10,
             borderRadius: 2,
           },
         }}
-        style={{ color: red, width: "40%", height: 400 ,margin:"0 auto"}}>
+        style={{ width: '35%', height: 500, margin: '0 auto' }}>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th className={styles.stickyColumnH}>name</th>
-              <th>pirce</th>
-              <th>id</th>
-              <th>category</th>
-              <th>maker</th>
-              <th>name</th>
-              <th>pirce</th>
-              <th>id</th>
-              <th>category</th>
-              <th>maker</th>
+              <th id={'th'} className={styles.stickyColumnH}>
+                name
+              </th>
+              <th id={'th'}>price</th>
+              <th id={'th'}>id</th>
+              <th id={'th'}>category</th>
+              <th id={'th'}>maker</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
@@ -121,6 +111,24 @@ export default function Table({ data }) {
       <button disabled={!change} onClick={() => handleSaveButton()}>
         сохранить
       </button>
+      <button onClick={() => handleGetDataButton()}>getData</button>
     </Paper>
   );
+}
+
+function getDataFromTable() {
+  const result = [];
+  const columns = document.querySelectorAll('#th');
+  const data = document.querySelectorAll('#td');
+  let i = 0;
+
+  while (i < data.length) {
+    const row = {};
+    columns.forEach((column) => {
+      row[column.textContent] = data[i].textContent;
+      i++;
+    });
+    result.push(row);
+  }
+  return result;
 }
