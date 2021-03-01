@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Paper, InputBase, IconButton, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-
-import { setNamePattern } from '../../redux/actions';
+import {filterActions} from '../../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '40%',
-    height: "4vh",
+    height: 35,
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -22,11 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search({ setNamePattern }) {
+export default function Search() {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const changeHanler = (event) => {
-    setNamePattern(event.target.value);
+    dispatch(filterActions.setNamePattern(event.target.value));
   };
 
   return (
@@ -46,9 +46,3 @@ function Search({ setNamePattern }) {
     </Paper>
   );
 }
-
-const mapDispatchToProps = {
-  setNamePattern,
-};
-
-export default connect(null, mapDispatchToProps)(Search);

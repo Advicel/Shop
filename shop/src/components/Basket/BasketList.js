@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   List,
   ListItem,
@@ -10,25 +10,9 @@ import {
 } from '@material-ui/core';
 import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons';
 
-import {
-  addToBasket,
-  deleteFromBasket,
-  changeCardCount,
-} from '../../redux/actions';
+import { basketActions } from '../../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    width: '50%',
-  },
   h3: {
     margin: 0,
   },
@@ -37,30 +21,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BasketList({ basket, deleteFromBasket, changeCardCount }) {
+export default function BasketList() {
+  const basket = useSelector((state) => state.basket.basket);
+  const dispatch = useDispatch();
   const styles = useStyles();
 
   const getBasketSumm = () =>
     basket.reduce((sum, card) => sum + card.count * card.card.price, 0);
   const removeHandler = (id) => {
     if (basket[id].count === 1) {
-      deleteFromBasket(id);
+      dispatch(basketActions.deleteFromBasket(id));
       return;
     }
-    let newCount = basket[id].count;
-    const newCard = {
-      card: basket[id].card,
-      count: --newCount,
-    };
-    changeCardCount([id, newCard]);
+    dispatch(basketActions.changeCardCount([id, -1]));
   };
   const addHandler = (id) => {
-    let newCount = basket[id].count;
-    const newCard = {
-      card: basket[id].card,
-      count: ++newCount,
-    };
-    changeCardCount([id, newCard]);
+    dispatch(basketActions.changeCardCount([id, +1]));
   };
 
   if (!basket.length) {
@@ -100,15 +76,3 @@ function BasketList({ basket, deleteFromBasket, changeCardCount }) {
     </List>
   );
 }
-const getReduxState = (state) => {
-  return {
-    basket: state.basket.basket,
-  };
-};
-const setReduxState = {
-  addToBasket,
-  deleteFromBasket,
-  changeCardCount,
-};
-
-export default connect(getReduxState, setReduxState)(BasketList);

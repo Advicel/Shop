@@ -1,5 +1,4 @@
 import React from 'react';
-//import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {Drawer, Button} from '@material-ui/core';
 import List from '@material-ui/core/List';
@@ -25,7 +24,7 @@ const useStyles = makeStyles(
       textAlign: 'center',
     },
     buttonMenu: {
-      height: '4vh',
+      height: 35,
     },
     li: {
       position: 'relative',

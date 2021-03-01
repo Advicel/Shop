@@ -6,15 +6,15 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import { connect } from 'react-redux';
-import { addToBasket, deleteFromBasket } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { basketActions } from '../redux/actions';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     maxWidth: 300,
     marginBottom: 20,
-    //border: '1px solid black',
+    marginRight: '20px',
   },
   bullet: {
     display: 'inline-block',
@@ -29,25 +29,28 @@ const useStyles = makeStyles({
   },
 });
 
-function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
+export default function SimpleCard({ card, isBasketExist }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const basketExists = (id) => basket.findIndex((x) => x.card.id === id);
+
   const handleChange = () => {
-    const id = basketExists(card.id);
-    if (id === -1) {
-      addToBasket({
-        card: card,
-        count: 1,
-      });
+    if (isBasketExist === -1) {
+      dispatch(
+        basketActions.addToBasket({
+          card: card,
+          count: 1,
+        })
+      );
     } else {
-      deleteFromBasket(id);
+      dispatch(basketActions.deleteFromBasket(isBasketExist));
     }
   };
+
   return (
     <Card className={classes.root} variant='outlined'>
       <CardContent>
         <Checkbox
-          checked={basketExists(card.id) !== -1}
+          checked={isBasketExist !== -1}
           onChange={handleChange}
           color='primary'
           inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -68,15 +71,3 @@ function SimpleCard({ basket, addToBasket, deleteFromBasket, card }) {
     </Card>
   );
 }
-
-const getReduxState = (state) => {
-  return {
-    basket: state.basket.basket,
-  };
-};
-const setReduxState = {
-  addToBasket,
-  deleteFromBasket,
-};
-
-export default connect(getReduxState, setReduxState)(SimpleCard);

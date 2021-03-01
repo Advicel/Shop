@@ -47,9 +47,6 @@ const useStyles = makeStyles(
     switcher: {
       textAlign: 'center',
     },
-    buttonMen:{
-      height:"5vh",
-    },
   },
   { name: 'Menu' }
 );

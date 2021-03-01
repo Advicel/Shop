@@ -1,16 +1,24 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import Card from './Card.js';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function ShopContent({ filter, data }) {
+export default function ShopContent({ data }) {
+  const basket = useSelector((state) => state.basket.basket);
+  const basketExists = (id) => basket.findIndex((x) => x.card.id === id);
+  const filter = useSelector((state) => state.filter);
   const styles = useStyles();
+
+  const isCategory = (card) =>
+    card.category === filter.category || filter.category === 'All';
+  const isPrice = (card) =>
+    (card.price >= filter.minPrice && card.price <= filter.maxPrice) ||
+    filter.maxPrice === null;
+  const isName = (card) =>
+    card.name.toLowerCase().includes(filter.namePattern.toLowerCase());
+
   data = data.filter(
-    (card) =>
-      (card.category === filter.category || filter.category === 'All') &&
-      ((card.price >= filter.minPrice && card.price <= filter.maxPrice) ||
-        filter.maxPrice === null) &&
-      card.name.toLowerCase().startsWith(filter.namePattern.toLowerCase())
+    (card) => isCategory(card) && isPrice(card) && isName(card)
   );
 
   if (!data.length) {
@@ -18,9 +26,17 @@ function ShopContent({ filter, data }) {
   }
   return (
     <div className={styles.shopContent}>
-      {data.map((card) => {
-        return <Card key={card.id} card={card} />;
-      })}
+      <div className={styles.cards}>
+        {data.map((card) => {
+          return (
+            <Card
+              key={card.id}
+              card={card}
+              isBasketExist={basketExists(card.id)}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -29,22 +45,17 @@ const useStyles = makeStyles(
   {
     shopContent: {
       margin: '0 auto',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
       width: '80%',
     },
+    cards: {
+      margin: '0 auto',
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-start',
+    },
   },
+
   {
     name: 'ShopContent',
   }
 );
-
-const mapStateToProps = (state) => {
-  return {
-    filter: state.filter,
-  };
-};
-
-export default connect(mapStateToProps, null)(ShopContent);
-  

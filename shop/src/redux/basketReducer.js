@@ -17,12 +17,11 @@ export const basketReducer = (state = initialState, action) => {
         basket: state.basket.filter((x, index) => index !== action.payload),
       };
     case CHANGE_CARD_COUNT:
-      const thirdPart = state.basket.splice(action.payload[0]+1,state.basket.length)
-      const firstPart = state.basket.splice(0,action.payload[0]);
-      const secondPart = action.payload[1];
+      const basket = [...state.basket];
+      basket[0].count +=action.payload[1];
       return {
         ...state,
-        basket: firstPart.concat(secondPart,thirdPart) ,
+        basket
       };
 
     default:

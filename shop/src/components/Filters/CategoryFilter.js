@@ -6,16 +6,17 @@ import {
   FormControl,
   FormLabel,
 } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { currentFilter } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { filterActions } from '../../redux/actions';
 
-function CategoryFilter({ currentFilter, data }) {
+export default function CategoryFilter({ data }) {
+  const dispatch = useDispatch();
   const category = [...new Set(data.map((item) => item.category))];
   const [value, setValue] = React.useState('All');
 
   const handleChangeCategory = (event) => {
     setValue(event.target.value);
-    currentFilter(event.target.value);
+    dispatch(filterActions.currentFilter(event.target.value));
   };
   return (
     <FormControl component='fieldset'>
@@ -38,9 +39,3 @@ function CategoryFilter({ currentFilter, data }) {
     </FormControl>
   );
 }
-
-const mapDispatchToProps = {
-  currentFilter,
-};
-
-export default connect(null, mapDispatchToProps)(CategoryFilter);

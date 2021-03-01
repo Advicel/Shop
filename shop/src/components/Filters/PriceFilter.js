@@ -1,18 +1,19 @@
 import React from 'react';
-import { makeStyles,Typography,Slider } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { setPriceFilter } from '../../redux/actions';
+import { makeStyles, Typography, Slider } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { filterActions } from '../../redux/actions';
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: '100%',
   },
 });
 
 function valuetext(value) {
   return `${value} $`;
 }
-function PriceFilter({ setPriceFilter, data }) {
+export default function PriceFilter({ data }) {
+  const dispatch = useDispatch();
   const price = [...new Set(data.map((item) => item.price))];
   //const minPrice = Math.min(...price);
   const maxPrice = Math.max(...price);
@@ -22,8 +23,8 @@ function PriceFilter({ setPriceFilter, data }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleClick= () =>{
-      setPriceFilter(value);
+  const handleClick = () => {
+    dispatch(filterActions.setPriceFilter(value));
   };
 
   return (
@@ -36,7 +37,7 @@ function PriceFilter({ setPriceFilter, data }) {
         max={maxPrice}
         value={value}
         onChange={handleChange}
-        onChangeCommitted ={handleClick}
+        onChangeCommitted={handleClick}
         valueLabelDisplay='auto'
         aria-labelledby='range-slider'
         getAriaValueText={valuetext}
@@ -44,9 +45,3 @@ function PriceFilter({ setPriceFilter, data }) {
     </div>
   );
 }
-
-const mapDispatchToProps = {
-  setPriceFilter,
-};
-
-export default connect(null, mapDispatchToProps)(PriceFilter);

@@ -6,7 +6,6 @@ import Filters from '../Filters/Filters.js';
 
 const useStyles = makeStyles(
   {
-    body: {},
     bodyWrapper: {
       display: 'flex',
       width: '95%',

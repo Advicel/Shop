@@ -34,9 +34,7 @@ const useStyles = makeStyles(
     header: {
       background:
          'linear-gradient(90deg, rgba(241,255,246,1) 0%, rgba(104,233,149,1) 30%, rgba(6,198,60,1) 100%)',
-      //background: "rgb(185,201,255)",
-      //background: "linear-gradient(90deg, rgba(185,201,255,1) 0%, rgba(13,53,246,1) 100%)",
-      height: "13vh",
+      height: 110,
     },
     headerWrapper: {
       display: 'flex',
@@ -47,7 +45,7 @@ const useStyles = makeStyles(
       margin: '0 auto',
     },
     logo: {
-      width: "10vh",
+      width: 80,
     },
     menuPlusBasket: {
       display: 'flex',

@@ -8,7 +8,7 @@ import {
   makeStyles,
   withStyles,
 } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import BasketList from './BasketList.js';
@@ -36,15 +36,15 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
   },
   shoppingCart: {
-    height: '4vh',
-    width: '4vh',
+    fontSize: 35,
   },
   basketWrapper: {
     margin: '0 10px',
   },
 }));
 
-function BasketModal({ basket }) {
+export default function BasketModal() {
+  const basket = useSelector((state) => state.basket.basket);
   const styles = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -84,11 +84,3 @@ function BasketModal({ basket }) {
     </div>
   );
 }
-
-const getReduxState = (state) => {
-  return {
-    basket: state.basket.basket,
-  };
-};
-
-export default connect(getReduxState, null)(BasketModal);
