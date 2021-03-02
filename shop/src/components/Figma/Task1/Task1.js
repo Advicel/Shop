@@ -1,50 +1,41 @@
 import React from 'react';
-import {
-  Paper,
-  Card,
-  makeStyles,
-  Typography,
-  CardContent,
-  CardActions,
-  Button,
-} from '@material-ui/core';
+import { Paper, makeStyles } from '@material-ui/core';
 import Task1Background from '../../../imgs/Task1Background.png';
 import Task1Sun from '../../../imgs/Task1Sun.png';
-import SmallCard from './ SmallCard';
+import SmallCard from './SmallCard';
 import LargeCard from './LargeCard';
 const useStyles = makeStyles(
   {
     paper: {
       backgroundImage: `url(${Task1Background})`,
       backgroundSize: '100% 100%',
-      height:"50%",
+      height: '50%',
       maxWidth: 1464,
       maxHeight: 440,
-      minWidth:1024,
+      minWidth: 1024,
       margin: 'auto',
       color: 'white',
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
-    wrapper:{
-      width:"95%",
-      height:"82%",
+    wrapper: {
+      width: '95%',
+      height: '82%',
     },
     header: {
       fontFamily: 'Inter',
       display: 'flex',
       alignItems: 'center',
-      fontSize:14,
-      fontWeight:"200",
+      fontSize: 14,
+      fontWeight: '200',
     },
-    headerImg:{
-      marginRight:15,
+    headerImg: {
+      marginRight: 15,
     },
     cardWrapper: {
-      marginLeft:4,
-      marginTop:40,
-
+      marginLeft: 4,
+      marginTop: 40,
       height: '75%',
       display: 'flex',
     },
@@ -59,11 +50,11 @@ const card1 = {
   mainSum: '419',
   currency: 'р./ед.',
   year: 2019,
-  secondarySum: "436",
+  secondarySum: '436',
   secondaryCurrency: 'р./ед.',
   color: 'rgba(87, 148, 222, 0.2)',
-  background:"blue",
-  operation:"x",
+  background: 'blue',
+  operation: 'x',
 };
 
 const card2 = {
@@ -74,8 +65,8 @@ const card2 = {
   secondarySum: '9 864',
   secondaryCurrency: 'чел./ч.',
   color: 'rgba(78,142,150,0.2)',
-  background:"green",
-  operation:"=",
+  background: 'green',
+  operation: '=',
 };
 const card3 = {
   header: 'ТСО модели (2020):',

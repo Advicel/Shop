@@ -1,13 +1,8 @@
 import React from 'react';
-import { makeStyles, Typography, Slider } from '@material-ui/core';
+import { Typography, Slider } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { filterActions } from '../../redux/actions';
-
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-});
+import PropTypes from 'prop-types';
 
 function valuetext(value) {
   return `${value} $`;
@@ -15,9 +10,7 @@ function valuetext(value) {
 export default function PriceFilter({ data }) {
   const dispatch = useDispatch();
   const price = [...new Set(data.map((item) => item.price))];
-  //const minPrice = Math.min(...price);
   const maxPrice = Math.max(...price);
-  const classes = useStyles();
   const [value, setValue] = React.useState([0, maxPrice]);
 
   const handleChange = (event, newValue) => {
@@ -28,7 +21,7 @@ export default function PriceFilter({ data }) {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <Typography id='range-slider' gutterBottom>
         Price range
       </Typography>
@@ -45,3 +38,7 @@ export default function PriceFilter({ data }) {
     </div>
   );
 }
+
+PriceFilter.propTypes = {
+  data: PropTypes.array,
+};

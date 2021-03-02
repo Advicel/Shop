@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
 import BasketList from './BasketList.js';
 
 const StyledBadge = withStyles((theme) => ({
@@ -23,6 +22,12 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const useStyles = makeStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
   modal: {
     display: 'flex',
     alignItems: 'center',

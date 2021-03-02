@@ -1,39 +1,18 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import BasketModal from '../Basket/BasketModal';
 import Search from '../Filters/Search.js';
 import logo from '../../imgs/harvest.svg';
-//import CustomizedMenus from '../Menu/Menu.js';
-import NewMenu from '../Menu/NewMenu'; 
-
-export default function Header({ onClick }) {
-  const styles = useStyles();
-  return (
-    <div className={styles.header}>
-      <div className={styles.headerWrapper}>
-        <Link to='/'>
-          <img className={styles.logo} src={logo} />
-        </Link>
-
-        <Search />
-        <div className={styles.menuPlusBasket}>
-          <BasketModal />
-          {/* <CustomizedMenus onClick={onClick} /> */}
-          <NewMenu onClick={onClick}/>
-        </div>
-        
-      </div>
-    </div>
-  );
-}
+import Menu from '../Menu/Menu';
 
 const useStyles = makeStyles(
   {
     header: {
       background:
-         'linear-gradient(90deg, rgba(241,255,246,1) 0%, rgba(104,233,149,1) 30%, rgba(6,198,60,1) 100%)',
+        'linear-gradient(90deg, rgba(241,255,246,1) 0%, rgba(104,233,149,1) 30%, rgba(6,198,60,1) 100%)',
       height: 110,
     },
     headerWrapper: {
@@ -56,3 +35,25 @@ const useStyles = makeStyles(
     name: 'Header',
   }
 );
+export default function Header({ onClick }) {
+  const styles = useStyles();
+  return (
+    <div className={styles.header}>
+      <div className={styles.headerWrapper}>
+        <Link to='/'>
+          <img className={styles.logo} src={logo} />
+        </Link>
+        <Search />
+        <div className={styles.menuPlusBasket}>
+          <BasketModal />
+          <Menu onClick={onClick} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Header.propTypes = {
+  onClick: PropTypes.func,
+};
+

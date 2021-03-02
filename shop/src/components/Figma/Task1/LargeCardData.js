@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Paper,
-  Card,
-  makeStyles,
-  Typography,
-  CardContent,
-} from '@material-ui/core';
-
+import { makeStyles, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import potrebl from '../../../imgs/potrebl.png';
 import pryamRash from '../../../imgs/pryamRash.png';
 import predost from '../../../imgs/predost.png';
@@ -15,24 +9,20 @@ import UpArrow from '../../../imgs/Task1Up.png';
 
 const useStyles = makeStyles(
   {
-    dataWrapper:{
-      //marginRight:10,
-    },
     headerWrapper: {
       display: 'flex',
       alignItems: 'center',
       fontSize: 12,
       color: '#657D95',
-      marginBottom:10,
-      //marginRight:64,
+      marginBottom: 10,
     },
     headerImg: {
       width: 18,
       height: 18,
       marginRight: 5,
     },
-    header:{
-      fontSize:12,
+    header: {
+      fontSize: 12,
     },
     mainSumWrapper: {
       display: 'flex',
@@ -40,7 +30,7 @@ const useStyles = makeStyles(
     },
     differenceWrapper: {
       display: 'flex',
-      color: (diff)=>diff[0] ==="red" ? "red" : "green", 
+      color: (diff) => (diff < 0 ? 'red' : 'green'),
       alignItems: 'center',
     },
     differenceImg: {
@@ -56,7 +46,7 @@ const useStyles = makeStyles(
     },
     mainSumCurr: {
       fontSize: 13,
-      marginRight:5,
+      marginRight: 5,
     },
     divider: {
       border: '1px solid #657D95',
@@ -69,7 +59,7 @@ const useStyles = makeStyles(
       fontSize: 11,
     },
     secondarySumWrapper: {
-        marginTop:7,
+      marginTop: 7,
       display: 'flex',
       alignItems: 'baseline',
     },
@@ -89,20 +79,23 @@ const useStyles = makeStyles(
 );
 
 export default function LargeCardData({ data, currency, year }) {
-
   const diff = difference(data.mainSum, data.secondarySum);
 
-  const headerImage =
-    data.header === 'потребляет'
-      ? potrebl
-      : data.header === 'прямые расходы'
-      ? pryamRash
-      : predost;
+  const headerImage = () => {
+    switch (data.header) {
+      case 'потребляет':
+        return potrebl;
+      case 'прямые расходы':
+        return pryamRash;
+      default:
+        return predost;
+    }
+  };
   const styles = useStyles(diff);
   return (
-    <div className={styles.dataWrapper}>
+    <div>
       <div className={styles.headerWrapper}>
-        <img className={styles.headerImg} src={headerImage}></img>
+        <img className={styles.headerImg} src={headerImage()}></img>
         <Typography className={styles.header}>{data.header}</Typography>
       </div>
       <div className={styles.mainSumWrapper}>
@@ -110,8 +103,10 @@ export default function LargeCardData({ data, currency, year }) {
         <Typography className={styles.mainSumCurr}>{currency}</Typography>
 
         <div className={styles.differenceWrapper}>
-          <img className={styles.differenceImg} src={diff[0]==="red" ? DownArrow : UpArrow}></img>
-          <Typography> {`${diff[0]==="red" ? "-" : ""}${diff[1]} %`}</Typography>
+          <img
+            className={styles.differenceImg}
+            src={diff < 0 ? DownArrow : UpArrow}></img>
+          <Typography> {`${diff} %`}</Typography>
         </div>
       </div>
 
@@ -126,18 +121,20 @@ export default function LargeCardData({ data, currency, year }) {
     </div>
   );
 }
-
 function difference(sum1, sum2) {
   sum1 = +sum1.split(' ').join('');
   sum2 = +sum2.split(' ').join('');
-  let result = [null, null];
-  let difference;
+  let result = null;
   if (sum1 > sum2) {
-    result[1] = Math.trunc(((sum1/sum2)-(Math.trunc(sum1/sum2)))*100);
-    result[0] = 'green';
+    result = Math.trunc((sum1 / sum2 - Math.trunc(sum1 / sum2)) * 100);
   } else {
-    result[1]=Math.trunc(((sum2/sum1)-(Math.trunc(sum2/sum1)))*100);
-    result[0] = 'red';
+    result = -1 * Math.trunc((sum2 / sum1 - Math.trunc(sum2 / sum1)) * 100);
   }
   return result;
 }
+
+LargeCardData.propTypes = {
+  currency: PropTypes.string,
+  year: PropTypes.number,
+  data: PropTypes.object,
+};

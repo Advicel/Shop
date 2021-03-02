@@ -1,114 +1,118 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ThemeSwitcher from '../ThemeSwitcher';
-import { Link } from 'react-router-dom';
+import {
+  Drawer,
+  Button,
+  makeStyles,
+  List,
+  ListItem,
+  ListItemIcon,
+  Typography,
+} from '@material-ui/core';
+import PropTypes from 'prop-types';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
-
-const StyledMenu = withStyles({
-  paper: {
-    border: '1px solid #d3d4d5',
-  },
-})((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    {...props}
-  />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))(MenuItem);
+import { Link } from 'react-router-dom';
+import ThemeSwitcher from '../ThemeSwitcher';
 
 const useStyles = makeStyles(
   {
+    list: {
+      width: 250,
+    },
     switcher: {
+      textAlign: 'center',
+    },
+    buttonMenu: {
+      height: 35,
+    },
+    li: {
+      position: 'relative',
+    },
+    link: {
+      textDecoration: 'none',
+      width: '100%',
+      position: 'absolute',
       textAlign: 'center',
     },
   },
   { name: 'Menu' }
 );
-export default function CustomizedMenus({ onClick }) {
+
+export default function NewMenu({ onClick }) {
   const styles = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [right, setState] = React.useState(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setState(open);
   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const menuItems = [
+    { path: '/profile', name: 'Profile', icon: 'personIcon' },
+    { path: '/', name: 'Home', icon: 'home' },
+    { path: '/basket', name: 'Basket', icon: 'shoppingCart' },
+    { path: '/Table', name: 'Table', icon: '' },
+    { path: '/Task1', name: 'Task1', icon: '' },
+  ];
+  const icons = (icon) => {
+    switch (icon) {
+      case 'personIcon':
+        return <PersonIcon fontSize='small' />;
+      case 'home':
+        return <HomeIcon fontSize='small' />;
+      case 'shoppingCart':
+        return <ShoppingCartIcon fontSize='small' />;
+      default:
+        return <PersonIcon fontSize='small' />;
+    }
   };
+  const list = () => (
+    <div
+      className={styles.list}
+      role='presentation'
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}>
+      <List>
+        {menuItems.map((item) => {
+          return (
+            <ListItem className={styles.li} key={item.name} button>
+              <ListItemIcon>{icons(item.icon)}</ListItemIcon>
+              <Link className={styles.link} to={item.path} color='primary'>
+                <Typography color='textPrimary'>{item.name}</Typography>
+              </Link>
+            </ListItem>
+          );
+        })}
+      </List>
+    </div>
+  );
 
   return (
     <div>
       <Button
+        className={styles.buttonMenu}
         aria-controls='customized-menu'
         aria-haspopup='true'
         variant='contained'
         color='primary'
-        onClick={handleClick}>
+        onClick={toggleDrawer(true)}>
         Open Menu
       </Button>
-      <StyledMenu
-        id='customized-menu'
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <HomeIcon fontSize='small' />
-          </ListItemIcon>
-          <Link to='/' color='primary'>
-            Home
-          </Link>
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <PersonIcon fontSize='small' />
-          </ListItemIcon>
-          <Link to='/profile' color='primary'>
-            Profile
-          </Link>
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <ShoppingCartIcon fontSize='small' />
-          </ListItemIcon>
-          <Link to='/basket' color='primary'>
-            Basket
-          </Link>
-        </StyledMenuItem>
+      <Drawer anchor={'right'} open={right} onClose={toggleDrawer(false)}>
+        {list()}
         <div className={styles.switcher}>
-          <ThemeSwitcher
-            onChange={onClick}
-            // value={darkMode}
-          />
+          <ThemeSwitcher onChange={onClick} />
         </div>
-      </StyledMenu>
+      </Drawer>
     </div>
   );
 }
+
+NewMenu.propTypes = {
+  onClick: PropTypes.func,
+};

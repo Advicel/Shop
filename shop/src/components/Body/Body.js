@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-
 import ShopContent from '../ShopContent';
 import Filters from '../Filters/Filters.js';
 

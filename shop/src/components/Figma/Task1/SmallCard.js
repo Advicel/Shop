@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Paper,
-  Card,
-  makeStyles,
-  Typography,
-  CardContent,
-  CardMedia,
-} from '@material-ui/core';
+import { Card, makeStyles, Typography, CardContent } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import DownArrow from '../../../imgs/Task1Down.png';
 import UpArrow from '../../../imgs/Task1Up.png';
 import blueBackground from '../../../imgs/Card1Hover.svg';
@@ -20,7 +14,6 @@ const useStyles = makeStyles(
       flexGrow: '1',
       borderRadius: 12,
       transition: 'all 1s ease',
-      //transition:'background 1s ease',
       background: (color) => color[0],
       '&:hover': {
         backgroundImage: (color) =>
@@ -53,7 +46,7 @@ const useStyles = makeStyles(
     },
     differenceWrapper: {
       display: 'flex',
-      color: (color) => (color[2] === 'red' ? 'red' : 'green'),
+      color: (color) => (color[2] < 0 ? 'red' : 'green'),
       alignItems: 'center',
     },
     differenceImg: {
@@ -121,8 +114,7 @@ const useStyles = makeStyles(
 
 export default function SmallCard({ card }) {
   const diff = difference(card.mainSum, card.secondarySum);
-  console.log(diff);
-  const colors = [card.color, card.background, diff[0]];
+  const colors = [card.color, card.background, diff];
   const styles = useStyles(colors);
   return (
     <Card className={styles.card}>
@@ -133,11 +125,8 @@ export default function SmallCard({ card }) {
           <div className={styles.differenceWrapper}>
             <img
               className={styles.differenceImg}
-              src={diff[0] === 'red' ? DownArrow : UpArrow}></img>
-            <Typography>
-              {' '}
-              {`${diff[0] === 'red' ? '-' : ''}${diff[1]} %`}
-            </Typography>
+              src={diff < 0 ? DownArrow : UpArrow}></img>
+            <Typography>{`${diff} %`}</Typography>
           </div>
         </div>
         <Typography className={styles.mainSumCurr}>{card.currency}</Typography>
@@ -162,13 +151,15 @@ export default function SmallCard({ card }) {
 function difference(sum1, sum2) {
   sum1 = +sum1.split(' ').join('');
   sum2 = +sum2.split(' ').join('');
-  let result = [null, null];
+  let result = null;
   if (sum1 > sum2) {
-    result[1] = Math.trunc((sum1 / sum2 - Math.trunc(sum1 / sum2)) * 100);
-    result[0] = 'green';
+    result = Math.trunc((sum1 / sum2 - Math.trunc(sum1 / sum2)) * 100);
   } else {
-    result[1] = Math.trunc((sum2 / sum1 - Math.trunc(sum2 / sum1)) * 100);
-    result[0] = 'red';
+    result = -1 * Math.trunc((sum2 / sum1 - Math.trunc(sum2 / sum1)) * 100);
   }
   return result;
 }
+
+SmallCard.propTypes = {
+  card: PropTypes.object,
+};

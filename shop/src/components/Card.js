@@ -1,40 +1,40 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  makeStyles,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  Checkbox,
+} from '@material-ui/core';
+import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { basketActions } from '../redux/actions';
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-    maxWidth: 300,
-    marginBottom: 20,
-    marginRight: '20px',
+const useStyles = makeStyles(
+  {
+    root: {
+      minWidth: 275,
+      maxWidth: 300,
+      marginBottom: 20,
+      marginRight: '20px',
+    },
+    pos: {
+      marginBottom: 12,
+    },
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+  {
+    name: 'SimpleCard',
+  }
+);
 
-export default function SimpleCard({ card, isBasketExist }) {
-  const dispatch = useDispatch();
+export default function SimpleCard({ card, indexInBasket }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleChange = () => {
-    if (isBasketExist === -1) {
+    if (indexInBasket === -1) {
       dispatch(
         basketActions.addToBasket({
           card: card,
@@ -42,7 +42,7 @@ export default function SimpleCard({ card, isBasketExist }) {
         })
       );
     } else {
-      dispatch(basketActions.deleteFromBasket(isBasketExist));
+      dispatch(basketActions.deleteFromBasket(indexInBasket));
     }
   };
 
@@ -50,7 +50,7 @@ export default function SimpleCard({ card, isBasketExist }) {
     <Card className={classes.root} variant='outlined'>
       <CardContent>
         <Checkbox
-          checked={isBasketExist !== -1}
+          checked={indexInBasket !== -1}
           onChange={handleChange}
           color='primary'
           inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -71,3 +71,8 @@ export default function SimpleCard({ card, isBasketExist }) {
     </Card>
   );
 }
+
+SimpleCard.propTypes = {
+  card: PropTypes.object,
+  indexInBasket: PropTypes.number,
+};

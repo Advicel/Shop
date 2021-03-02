@@ -1,5 +1,6 @@
 import { makeStyles, Paper } from '@material-ui/core';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Scrollbar } from 'react-scrollbars-custom';
 import './styles.css';
 import Sun from '../../imgs/Task1Sun.png';
@@ -20,7 +21,6 @@ const useStyles = makeStyles(
       width: '100%',
     },
   },
-
   {
     name: 'Table',
   }
@@ -49,7 +49,6 @@ export default function Table({ data }) {
         <td id={'td'}>
           <div
             style={{ height: '100%' }}
-            className={styles.editableDiv}
             contentEditable={change}
             suppressContentEditableWarning={true}>
             {row.price}
@@ -86,10 +85,8 @@ export default function Table({ data }) {
         }}
         thumbYProps={{
           style: {
-            //right:-10,
             backgroundImage: `url(${Sun})`,
             backgroundSize: 'contain',
-            //background: 'rgba(31, 142, 250, 0.4)',
             width: 10,
             borderRadius: 2,
           },
@@ -137,3 +134,6 @@ function getDataFromTable() {
   }
   return result;
 }
+Table.propTypes = {
+  data: PropTypes.array,
+};

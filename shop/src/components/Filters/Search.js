@@ -1,40 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Paper, InputBase, IconButton, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import {filterActions} from '../../redux/actions';
+import { filterActions } from '../../redux/actions';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    width: '40%',
-    height: 35,
+const useStyles = makeStyles(
+  {
+    root: {
+      padding: '2px 4px',
+      display: 'flex',
+      alignItems: 'center',
+      width: '40%',
+      height: 35,
+    },
+    input: {
+      marginLeft: 10,
+      flex: 1,
+    },
+    iconButton: {
+      padding: 10,
+    },
   },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-  },
-}));
+  {
+    name: 'Search',
+  }
+);
 
 export default function Search() {
-  const dispatch = useDispatch();
   const classes = useStyles();
+  const [value, setValue] = useState('');
 
-  const changeHanler = (event) => {
-    dispatch(filterActions.setNamePattern(event.target.value));
-  };
+  const dispatch = useDispatch();
+
+  function onChange(event) {
+    setValue(event.target.value);
+  }
+  let debouncedOnChange = debounce(onChange);
+
+  useEffect(() => {
+    dispatch(filterActions.setNamePattern(value));
+  }, [value]);
 
   return (
-    <Paper component='form' className={classes.root}>
+    <Paper className={classes.root}>
       <InputBase
         className={classes.input}
         placeholder='Search'
-        onChange={changeHanler}
+        svalue={value}
+        onChange={debouncedOnChange}
       />
       <IconButton
         type='submit'
@@ -46,3 +59,14 @@ export default function Search() {
     </Paper>
   );
 }
+
+const debounce = (fn) => {
+  let timeout;
+  return function () {
+    const fnCall = () => {
+      fn.apply(this, arguments);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(fnCall, 300);
+  };
+};

@@ -12,19 +12,22 @@ import { Add as AddIcon, Remove as RemoveIcon } from '@material-ui/icons';
 
 import { basketActions } from '../../redux/actions';
 
-const useStyles = makeStyles((theme) => ({
-  h3: {
-    margin: 0,
+const useStyles = makeStyles(
+  {
+    h3: {
+      margin: 0,
+    },
+    summ: {
+      backgroundColor: '#fdfdd5',
+    },
   },
-  summ: {
-    backgroundColor: '#fdfdd5',
-  },
-}));
+  { name: 'BasketList' }
+);
 
 export default function BasketList() {
+  const styles = useStyles();
   const basket = useSelector((state) => state.basket.basket);
   const dispatch = useDispatch();
-  const styles = useStyles();
 
   const getBasketSumm = () =>
     basket.reduce((sum, card) => sum + card.count * card.card.price, 0);
@@ -58,7 +61,6 @@ export default function BasketList() {
                 onClick={() => removeHandler(index)}>
                 <RemoveIcon />
               </IconButton>
-
               <IconButton
                 edge='end'
                 aria-label='comments'
@@ -69,7 +71,6 @@ export default function BasketList() {
           </ListItem>
         );
       })}
-
       <ListItem className={styles.summ}>
         <ListItemText primary={'Itog:'} secondary={`${getBasketSumm()} $`} />
       </ListItem>

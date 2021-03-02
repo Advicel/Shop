@@ -6,6 +6,7 @@ import {
   FormControl,
   FormLabel,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { filterActions } from '../../redux/actions';
 
@@ -39,3 +40,7 @@ export default function CategoryFilter({ data }) {
     </FormControl>
   );
 }
+
+CategoryFilter.propTypes = {
+  data: PropTypes.array,
+};

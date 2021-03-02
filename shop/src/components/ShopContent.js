@@ -1,11 +1,30 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import Card from './Card.js';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import Card from './Card.js';
+
+const useStyles = makeStyles(
+  {
+    shopContent: {
+      margin: '0 auto',
+      width: '70%',
+    },
+    cards: {
+      margin: '0 auto',
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-start',
+    },
+  },
+  {
+    name: 'ShopContent',
+  }
+);
 
 export default function ShopContent({ data }) {
   const basket = useSelector((state) => state.basket.basket);
-  const basketExists = (id) => basket.findIndex((x) => x.card.id === id);
+  const indexInBasket = (id) => basket.findIndex((x) => x.card.id === id);
   const filter = useSelector((state) => state.filter);
   const styles = useStyles();
 
@@ -17,22 +36,22 @@ export default function ShopContent({ data }) {
   const isName = (card) =>
     card.name.toLowerCase().includes(filter.namePattern.toLowerCase());
 
-  data = data.filter(
+  const filteredData = [...data].filter(
     (card) => isCategory(card) && isPrice(card) && isName(card)
   );
 
-  if (!data.length) {
-    return <h3 className={styles.shopContent}>Товыры не найдены</h3>;
+  if (!filteredData.length) {
+    return <h3 className={styles.shopContent}>Товары не найдены</h3>;
   }
   return (
     <div className={styles.shopContent}>
       <div className={styles.cards}>
-        {data.map((card) => {
+        {filteredData.map((card) => {
           return (
             <Card
               key={card.id}
               card={card}
-              isBasketExist={basketExists(card.id)}
+              indexInBasket={indexInBasket(card.id)}
             />
           );
         })}
@@ -41,21 +60,6 @@ export default function ShopContent({ data }) {
   );
 }
 
-const useStyles = makeStyles(
-  {
-    shopContent: {
-      margin: '0 auto',
-      width: '80%',
-    },
-    cards: {
-      margin: '0 auto',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'flex-start',
-    },
-  },
-
-  {
-    name: 'ShopContent',
-  }
-);
+ShopContent.propTypes = {
+  data: PropTypes.array,
+};

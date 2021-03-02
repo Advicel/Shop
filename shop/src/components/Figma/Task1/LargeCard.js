@@ -1,32 +1,25 @@
 import React from 'react';
-import {
-  Paper,
-  Card,
-  makeStyles,
-  Typography,
-  CardContent,
-} from '@material-ui/core';
-
+import { Card, makeStyles, Typography, CardContent } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import LargeCardData from './LargeCardData';
 const useStyles = makeStyles(
   {
     card: {
-        padding:0,
+      padding: 0,
       position: 'relative',
       flexGrow: '2',
       background: (card) => card.color,
       color: 'white',
-      height:"100%",
+      height: '100%',
       overflow: 'visible',
-      display:"flex",
-      justifyContent:"center",
-      alignItems:"center",
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       borderRadius: 12,
     },
     wrapper: {
-        width:"93%",
-        //height:"70%",
-        margin:"0 auto",
+      width: '93%',
+      margin: '0 auto',
     },
     overMainSum: {
       fontFamily: 'Inter',
@@ -49,7 +42,7 @@ const useStyles = makeStyles(
     },
     cardDataWrapper: {
       display: 'flex',
-      justifyContent:"space-between",
+      justifyContent: 'space-between',
     },
   },
   {
@@ -70,23 +63,22 @@ export default function LargeCard({ card }) {
           </Typography>
         </div>
         <div className={styles.cardDataWrapper}>
-          <LargeCardData
-            data={card.part1}
-            currency={card.currency}
-            year={card.year}
-          />
-          <LargeCardData
-            data={card.part2}
-            currency={card.currency}
-            year={card.year}
-          />
-          <LargeCardData
-            data={card.part3}
-            currency={card.currency}
-            year={card.year}
-          />
+          {[card.part1, card.part2, card.part3].map((part) => {
+            return (
+              <LargeCardData
+                key={part.header}
+                data={part}
+                currency={card.currency}
+                year={card.year}
+              />
+            );
+          })}
         </div>
       </CardContent>
     </Card>
   );
 }
+
+LargeCard.propTypes = {
+  card: PropTypes.object,
+};

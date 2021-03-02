@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Paper} from '@material-ui/core';
-import './styles/styles.css';
+import { Paper, ThemeProvider, createMuiTheme } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from './components/Header/Header.js';
 import Body from './components/Body/Body.js';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Basket from './components/Basket/Basket';
 import Profile from './components/Profile/Profile';
 import Table from './components/Table/Table';
 import Task1 from './components/Figma/Task1/Task1';
-
+import './styles/styles.css';
 
 export default function App({ data }) {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,16 +19,15 @@ export default function App({ data }) {
   });
   return (
     <ThemeProvider theme={theme}>
-
       <Paper style={{ height: '100vh', overflowY: 'scroll' }}>
-        <Router>  
+        <Router>
           <Header onClick={() => setDarkMode(!darkMode)} />
           <Switch>
             <Route path='/Table'>
-              <Table data={data}/>
+              <Table data={data} />
             </Route>
             <Route path='/Task1'>
-              <Task1/>
+              <Task1 />
             </Route>
             <Route path='/basket'>
               <Basket />
@@ -46,3 +44,7 @@ export default function App({ data }) {
     </ThemeProvider>
   );
 }
+
+App.propTypes = {
+  data: PropTypes.array,
+};

@@ -1,6 +1,6 @@
 import { makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import CategoryFilter from './CategoryFilter.js';
 import PriceFilter from './PriceFilter.js';
 
@@ -33,3 +33,7 @@ export default function Filters({ data }) {
   );
   return filters;
 }
+
+Filters.propTypes = {
+  data: PropTypes.array,
+};

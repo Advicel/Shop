@@ -6,6 +6,7 @@ import {
   DELETE_FROM_BASKET,
   CHANGE_CARD_COUNT,
 } from './types';
+
 export const filterActions = {
   setNamePattern: (payload) => ({ type: CREATE_NAME_PATTERN, payload }),
   currentFilter: (payload) => ({ type: CREATE_FILTER, payload }),
