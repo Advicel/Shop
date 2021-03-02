@@ -11,7 +11,7 @@ import {
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { basketActions } from '../redux/actions';
-
+let count = 0;
 const useStyles = makeStyles(
   {
     root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles(
   }
 );
 
-export default function SimpleCard({ card, indexInBasket }) {
+export default React.memo(function SimpleCard({ card, indexInBasket }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -70,9 +70,9 @@ export default function SimpleCard({ card, indexInBasket }) {
       </CardActions>
     </Card>
   );
-}
+});
 
-SimpleCard.propTypes = {
-  card: PropTypes.object,
-  indexInBasket: PropTypes.number,
-};
+// SimpleCard.propTypes = {
+//   card: PropTypes.object,
+//   indexInBasket: PropTypes.number,
+// };

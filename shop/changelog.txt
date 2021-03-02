@@ -1,0 +1,22 @@
+Change log
+Пон:
+Заменил connect на useDispatch + useSelector (Везде)
+Заменил space-between на flex-start (ShopContent)
+Перенес isBasketExist на уровень выше (ShopContent, Card)
+Заменил StartsWith на includes (ShopContent)
+Разбил фильтрацию на 3 отдельных функции (ShopContent)
+Удалил лишние стили (BasketList)
+Заменил vh на font-size: px (BasketModal, Search, Header)
+Заменил неведомую логику в CHANGE_CARD_COUNT (basketReducer,BasketList)
+Изменил функция difference (LargeCardData, SmallCard)
+Заменил тернарный оператор на switch (LargeCardData)
+Добавил debounce (Search)
+
+Вт:
+Привел все к единому виду:
+-стили над компонентом
+-все useStyles содержат имя
+-PropTypes
+Зарефакторил код (Menu,LargeCard)
+Навесил  React.memo(Card)
+Удалил файл со старым меню из проекта
